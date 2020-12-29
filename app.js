@@ -1,21 +1,24 @@
 'use strict';
 
+//This function places the input number into the GET(fetch) Request
+//then a JSON response is generated
+//then the response is put through the displayImages function
+//if any errors are caught an alert will be displayed
 function getDogImage(dogNum) {
   fetch(`https://dog.ceo/api/breeds/image/random/${dogNum}`)
     .then(response => response.json())
     .then(responseJson => displayImages(responseJson))
     .catch(error => alert('Something went wrong. Try again later.'));
 }
-//var doggyBin= []
 
+//This function takes the responseJSON, creates images,
+//and places them in the DOM
 function displayImages(responseJson){
- //console.log("These are the doggies " + responseJson.message)
  var doggyBin= []
  let dogPics = responseJson.message
  doggyBin = dogPics
  var div= document.getElementById('results')
  div.innerHTML='';
- //console.log(doggyBin)
  for(let i = 0; i < doggyBin.length; i++){
    var allDoggies= document.createElement('div');
    var img= document.createElement('img');
@@ -24,7 +27,8 @@ function displayImages(responseJson){
    div.appendChild(allDoggies)
   }
 }
-
+//This function responds to the form submission by taking the input number
+//and placing it into the GET Request
 function watchForm() {
   $('form').submit(event => {
     if($('#dogamt').val().length===0){
